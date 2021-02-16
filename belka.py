@@ -7,5 +7,5 @@ def squirrel(N):
     for i in range(1, N + 1):
         n_fact *= i
     
-    first_num = str(n_fact)[:1]
+    first_num = str(n_fact)[0]
     return int(first_num)
