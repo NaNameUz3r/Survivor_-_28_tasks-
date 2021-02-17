@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 def ConquestCampaign(N, M, L, battalion):
 
     capture_area = []
@@ -23,21 +24,24 @@ def ConquestCampaign(N, M, L, battalion):
     print(day_counter, 'day')
     
 
-
-    for i in range(N):
-        for j in range(M):
-            if capture_area[i][j] == day_counter:
-                if j - 1 >= 0 and capture_area[i][j - 1] < day_counter:
-                    capture_area[i][j - 1] = day_counter + 1
-                if j + 1 <= M - 1 and capture_area[i][j + 1] < day_counter:
-                    capture_area[i][j + 1] = day_counter + 1
-                if i - 1 >= 0 and capture_area[i - 1][j] < day_counter:
-                    capture_area[i - 1][j] = day_counter + 1
-                if i + 1 <= N - 1 and capture_area[i + 1][j] < day_counter:
-                    capture_area[i + 1][j] = day_counter + 1
-    
-    day_counter += 1
-    
+    while not_captured:
+        for x in range(N):
+            for y in range(M):
+                if capture_area[x][y] == 0:    
+                    for i in range(N):
+                        for j in range(M):
+                            if capture_area[i][j] == day_counter:
+                                if j - 1 >= 0 and capture_area[i][j - 1] < day_counter:
+                                    capture_area[i][j - 1] = day_counter + 1
+                                if j + 1 <= M - 1 and capture_area[i][j + 1] < day_counter:
+                                    capture_area[i][j + 1] = day_counter + 1
+                                if i - 1 >= 0 and capture_area[i - 1][j] < day_counter:
+                                    capture_area[i - 1][j] = day_counter + 1
+                                if i + 1 <= N - 1 and capture_area[i + 1][j] < day_counter:
+                                    capture_area[i + 1][j] = day_counter + 1
+                    day_counter += 1
+                else:
+                    not_captured = False
     
     for row in capture_area:
         print(*row)
@@ -49,3 +53,4 @@ def ConquestCampaign(N, M, L, battalion):
 
 
 ConquestCampaign(3, 4, 2, [2,2, 3,4])
+
