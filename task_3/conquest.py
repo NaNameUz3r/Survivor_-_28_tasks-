@@ -10,19 +10,10 @@ def ConquestCampaign(N, M, L, battalion):
             capture_area[i].append(0)
 
     not_captured = True
-    
     day_counter = 1
-
 
     for troop in range(0, len(battalion), 2):
         capture_area[battalion[troop] - 1][battalion[troop + 1] - 1] = day_counter 
-
-
-    for row in capture_area:
-        print(*row)
-    print('------------')
-    print(day_counter, 'day')
-    
 
     while not_captured:
         for x in range(N):
@@ -43,14 +34,4 @@ def ConquestCampaign(N, M, L, battalion):
                 else:
                     not_captured = False
     
-    for row in capture_area:
-        print(*row)
-    print('------------')
-    print(day_counter, 'day')
-    
-
-
-
-
-ConquestCampaign(3, 4, 2, [2,2, 3,4])
-
+    return day_counter
