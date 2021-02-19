@@ -10,7 +10,10 @@ def WordSearch(len, s, subs):
         
     chunks = iter(s.split())
     
+    print(chunks)
+    
     lines, current = [], next(chunks)
+   
     for i in chunks:
         if lenn(current) + 1 + lenn(i) > len:
             lines.append(current)
@@ -19,8 +22,10 @@ def WordSearch(len, s, subs):
             current += " " + i
     lines.append(current)
     
-    result = []
-    
+    if ' ' not in lines[0] and lenn(lines[0]) > len:
+        lines.append(lines[0][len:])
+        lines[0] = lines[0][:len]
+
     def check(input_arr):
         for j in input_arr.split():
             if j == subs:
