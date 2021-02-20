@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-def SumOfLine(N, data):
+def SumOfThe(N, data):
 
     for i in range(N):
         temp_data = data.copy()
