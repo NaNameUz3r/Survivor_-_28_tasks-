@@ -34,19 +34,22 @@ def TheRabbitFoot(s, encode):
 
     def decrypt(encoded_string):
 
-        columns = encoded_string.split()
+        encoded_string = encoded_string.split()
 
-        characters = []
+        result = []
+
+        max_row_len = len(max(encoded_string, key=len))
+
         index = 0
-
-        while True:
-            for column in columns:
+        while index < max_row_len:
+            for j in range(len(encoded_string)):
                 try:
-                    character = column[index]
+                    result.append(encoded_string[j][index])
                 except IndexError:
-                    return ''.join(characters)
-                characters.append(character)
+                    break
             index += 1
+        result = ''.join(result)
+        return result
 
     if encode:
         encrypt(s)
