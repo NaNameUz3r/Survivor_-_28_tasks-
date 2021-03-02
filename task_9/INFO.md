@@ -30,3 +30,4 @@
 string TheRabbitsFoot(string s, bool encode)
 
 получает исходную строку s и либо зашифровывает её (encode = true), либо расшифровывает (encode = false), только конечно без исходных пробелов. 
+test
