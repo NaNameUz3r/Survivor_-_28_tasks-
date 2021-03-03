@@ -1,4 +1,4 @@
-def TheRabbitFoot(s, encode):
+def TheRabbitsFoot(s, encode):
 
     def encrypt(string_to_encrypt):
         string_to_encrypt = string_to_encrypt.replace(' ', '')
@@ -29,7 +29,6 @@ def TheRabbitFoot(s, encode):
             result_list.append(' ')
 
         result_list = ''.join(result_list).strip()
-
         return result_list
 
     def decrypt(encoded_string):
@@ -38,7 +37,7 @@ def TheRabbitFoot(s, encode):
         result = []
         max_row_len = len(max(encoded_string, key=len))
         index = 0
-        
+
         while index < max_row_len:
             for j in range(len(encoded_string)):
                 if len(encoded_string[j]) - 1 < index:
@@ -53,4 +52,5 @@ def TheRabbitFoot(s, encode):
         encrypt(s)
     else:
         decrypt(s)
+
 
