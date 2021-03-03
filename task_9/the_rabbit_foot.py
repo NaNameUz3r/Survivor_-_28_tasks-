@@ -47,7 +47,6 @@ def TheRabbitFoot(s, encode):
                     result.append(encoded_string[j][index])
             index += 1
         result = ''.join(result)
-        print(result)
         return result
 
     if encode:
