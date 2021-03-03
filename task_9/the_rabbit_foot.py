@@ -28,13 +28,13 @@ def TheRabbitsFoot(s, encode):
                     result_list.append(encrypt_list[j][i])
             result_list.append(' ')
 
-        result_list = ''.join(result_list).strip()
-        return result_list
+        result = ''.join(result_list).strip()
+        return result
 
     def decrypt(encoded_string):
 
         encoded_string = encoded_string.split()
-        result = []
+        result_list = []
         max_row_len = len(max(encoded_string, key=len))
         index = 0
 
@@ -43,14 +43,13 @@ def TheRabbitsFoot(s, encode):
                 if len(encoded_string[j]) - 1 < index:
                     break
                 else:
-                    result.append(encoded_string[j][index])
+                    result_list.append(encoded_string[j][index])
             index += 1
-        result = ''.join(result)
+        result = ''.join(result_list)
         return result
 
     if encode:
-        encrypt(s)
+        return encrypt(s)
     else:
-        decrypt(s)
-
+        return decrypt(s)
 
