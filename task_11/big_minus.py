@@ -1,4 +1,4 @@
-def BigMinis(s1, s2):
+def BigMinus(s1, s2):
 
     larger = ''
     lesser = ''
