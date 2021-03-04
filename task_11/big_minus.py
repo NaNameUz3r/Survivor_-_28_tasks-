@@ -33,11 +33,13 @@ def BigMinus(s1, s2):
             larger[i + 1] = str(int(larger[i + 1]) - 1)
             tmp = (int(larger[i]) + 10) - int(lesser[i])
             result.append(str(tmp))
+    else:
+        result.append('0')
 
     appendix = larger[len(lesser):]
     result.append(''.join(appendix))
     result_string = ''.join(result)
     result_string = result_string[::-1]
-
+    result_string = str(int(result_string))
     return result_string
 
