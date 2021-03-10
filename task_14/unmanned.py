@@ -7,6 +7,7 @@ def Unmanned(L, N, track):
     while road_length > 0:
 
         if len(track) == 0:
+            moving_time += road_length
             break
 
         if moving_time == track[0][0] and (
