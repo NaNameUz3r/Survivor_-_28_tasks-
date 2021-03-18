@@ -3,7 +3,7 @@ def TankRush(H1, W1, S1, H2, W2, S2):
     second_map = S2.split()
 
     for i in range(H1):
-        if second_map[0] in first_map[i]:
+        if second_map[0] in first_map[i] and i < len(first_map) - 1:
             position = first_map[i].find(second_map[0][0])
             for j in range(H2):
                 if second_map[j] in first_map[i + j] and (
