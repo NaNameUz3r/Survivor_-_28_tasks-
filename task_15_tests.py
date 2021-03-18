@@ -24,6 +24,10 @@ class TankRushTest(unittest.TestCase):
     def test6(self):
         self.assertEqual(tank_rush.TankRush(3, 8, '7277604 1583078 1427735', 3, 2, '78 35 20'), False)
 
+    def test7(self):
+        self.assertEqual(tank_rush.TankRush(3, 15, '993854324744973 768703404219199 630625270887199',
+                                            2, 2, '99 99'), True)
+
     def test_random_true(self):
         first_map = ''
         second_map = ''
