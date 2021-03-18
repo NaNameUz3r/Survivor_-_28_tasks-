@@ -1,6 +1,6 @@
 import unittest
 import random
-from task_15 import tank_rush
+from solutions import tank_rush
 
 
 class TankRushTest(unittest.TestCase):
@@ -9,9 +9,12 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 34"), True)
 
     def test2(self):
-        self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 98"), False)
+        self.assertEqual(tank_rush.TankRush(3, 3, '321 694 798', 3, 2, '32 69 79'), True)
 
     def test3(self):
+        self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 98"), False)
+
+    def test4(self):
         self.assertEqual(tank_rush.TankRush(3, 8, '7277604 1583078 1427735', 3, 2, '78 35 20'), False)
 
     def test_random_true(self):
