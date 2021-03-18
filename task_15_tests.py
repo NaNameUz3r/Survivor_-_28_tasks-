@@ -9,12 +9,19 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 34"), True)
 
     def test2(self):
-        self.assertEqual(tank_rush.TankRush(3, 3, '321 694 798', 3, 2, '32 69 79'), True)
+        self.assertEqual(tank_rush.TankRush(1, 3, '727', 1, 2, '72'), True)
 
     def test3(self):
-        self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 98"), False)
+        self.assertEqual(tank_rush.TankRush(3, 3, '321 694 798', 3, 2, '32 69 79'), True)
 
     def test4(self):
+        self.assertEqual(tank_rush.TankRush(7, 3, '727 158 735 425 235 123 432',
+                                            6, 2, '72 15 73 42 23 12'), True)
+
+    def test5(self):
+        self.assertEqual(tank_rush.TankRush(3, 4, "1234 2345 0987", 2, 2, "23 98"), False)
+
+    def test6(self):
         self.assertEqual(tank_rush.TankRush(3, 8, '7277604 1583078 1427735', 3, 2, '78 35 20'), False)
 
     def test_random_true(self):
