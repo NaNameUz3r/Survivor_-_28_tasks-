@@ -3,15 +3,21 @@ def TankRush(H1, W1, S1, H2, W2, S2):
     second_map = S2.split()
 
     result = False
-    founding = []
-    for i in second_map:
-        for j in first_map:
-            if i in j:
-                founding.append(j.find(i[0]))
 
-    for g in range(len(founding) - 1):
-        if founding[g] == founding[g + 1]:
-            result = True
-            break
+
+
+    for i in range(H1):
+        if second_map[0] in first_map[i]:
+            position = first_map[i].find(second_map[0][0])
+            for j in range(H2):
+                if second_map[j] in first_map[i + j] and (
+                        first_map[i + j].find(second_map[j][0]) == position
+                ):
+                    continue
+                else:
+                    break
+            else:
+                result = True
+
     return result
 
