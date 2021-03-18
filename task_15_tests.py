@@ -1,6 +1,6 @@
 import unittest
 import random
-from solutions import tank_rush
+from task_15 import tank_rush
 
 
 class TankRushTest(unittest.TestCase):
