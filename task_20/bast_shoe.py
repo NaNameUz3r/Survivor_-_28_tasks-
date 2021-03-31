@@ -3,9 +3,15 @@ curr_idx = 1
 undo_buffer = []
 buf_len = len(undo_buffer)
 
-def BastShoe(command):
-    cmd = int(command[:1])
-    string = command[2:]
+def BastShoe(command ='empty'):
+
+    if command == 'empty':
+        return current_string
+    try:
+        cmd = int(command[:1])
+        string = command[2:]
+    except ValueError:
+        return current_string
 
     if cmd == 1:
         append_str(string)
