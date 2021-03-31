@@ -14,14 +14,18 @@ def BastShoe(command ='empty'):
         return current_string
 
     if cmd == 1:
+        if len(string) == 0:
+            return current_string
         append_str(string)
-    elif cmd == 2 and type(string) == int:
+    elif cmd == 2:
+        if len(string) == 0:
+            return current_string
         delete(string)
-    elif cmd == 3 and type(string) == int:
+    elif cmd == 3:
         feedback_index(string)
-    elif cmd == 4 and len(string) == 0 and buf_len != 0:
+    elif cmd == 4:
         undo()
-    elif cmd == 5 and len(string) == 0 and buf_len != 0:
+    elif cmd == 5:
         redo()
     else:
         return current_string
@@ -43,6 +47,7 @@ def append_str(x_str):
     else:
         current_string = undo_buffer[-1] + x_str
         undo_buffer.append(current_string)
+
     return current_string
 
 
@@ -71,7 +76,9 @@ def feedback_index(x_str):
     if int(x_str) > len(current_string) or int(x_str) < 0:
         return ''
     else:
+
         index = current_string[int(x_str)]
+        print(index)
         return index
 
 
