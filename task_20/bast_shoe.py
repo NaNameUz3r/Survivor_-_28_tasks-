@@ -15,13 +15,13 @@ def BastShoe(command ='empty'):
 
     if cmd == 1:
         append_str(string)
-    elif cmd == 2:
+    elif cmd == 2 and type(string) == int:
         delete(string)
-    elif cmd == 3:
+    elif cmd == 3 and type(string) == int:
         feedback_index(string)
-    elif cmd == 4:
+    elif cmd == 4 and len(string) == 0 and buf_len != 0:
         undo()
-    elif cmd == 5:
+    elif cmd == 5 and len(string) == 0 and buf_len != 0:
         redo()
     else:
         return current_string
