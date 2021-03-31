@@ -3,29 +3,32 @@ curr_idx = 1
 undo_buffer = []
 buf_len = len(undo_buffer)
 
-def BastShoe(command ='empty'):
 
-    if command == 'empty':
-        return current_string
-    try:
-        cmd = int(command[:1])
-        string = command[2:]
-    except ValueError:
-        return current_string
+def BastShoe(command='empty'):
+    input_data = command.split(' ', 1)
 
-    if cmd == 1:
+    cmd = int(input_data[0])
+    if 1 <= cmd <= 3:
+        string = input_data[1]
+    else:
+        string = None
+
+    if int(cmd) == 1:
         if len(string) == 0:
             return current_string
         append_str(string)
-    elif cmd == 2:
+        # отладочное условие
+    elif int(cmd) == 0:
+        show_current()
+    elif int(cmd) == 2:
         if len(string) == 0:
             return current_string
         delete(string)
-    elif cmd == 3:
+    elif int(cmd) == 3:
         feedback_index(string)
-    elif cmd == 4:
+    elif int(cmd) == 4:
         undo()
-    elif cmd == 5:
+    elif int(cmd) == 5:
         redo()
     else:
         return current_string
