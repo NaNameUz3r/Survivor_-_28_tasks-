@@ -3,32 +3,44 @@ curr_idx = 1
 undo_buffer = []
 buf_len = len(undo_buffer)
 
+def BastShoe(command):
 
-def BastShoe(command='empty'):
+    global current_string
+    global undo_buffer
+    global curr_idx
+    global buf_len
+
+    if command == '':
+        return current_string
+
     input_data = command.split(' ', 1)
-
     cmd = int(input_data[0])
-    if 1 <= cmd <= 3:
+    if len(input_data) > 1:
         string = input_data[1]
     else:
-        string = None
+        string = ''
 
     if int(cmd) == 1:
-        if len(string) == 0:
+        if string == '':
             return current_string
         append_str(string)
-        # отладочное условие
-    elif int(cmd) == 0:
-        show_current()
     elif int(cmd) == 2:
-        if len(string) == 0:
+        if string == '' or current_string == '':
             return current_string
-        delete(string)
+        else:
+            delete(string)
     elif int(cmd) == 3:
-        feedback_index(string)
-    elif int(cmd) == 4:
+        if string == '':
+            return ''
+        else:
+            feedback_index(string)
+    elif int(cmd) == 4 and string == '':
+        if len(undo_buffer) == 0:
+            return current_string
         undo()
-    elif int(cmd) == 5:
+    elif int(cmd) == 5  and string == '':
+        if len(undo_buffer) == 0:
+            return current_string
         redo()
     else:
         return current_string
@@ -65,25 +77,30 @@ def delete(N):
         curr_idx = 1
 
     str_len = len(current_string)
-    if int(N) >= str_len:
-        current_string = ''
-    else:
-        current_string = current_string[:str_len - int(N)]
-    undo_buffer.append(current_string)
+    try:
+        if int(N) >= str_len:
+            current_string = ''
+        else:
+            current_string = current_string[:str_len - int(N)]
+        undo_buffer.append(current_string)
 
-    return current_string
-
+        return current_string
+    except ValueError:
+        return current_string
 
 def feedback_index(x_str):
     global current_string
-    if int(x_str) > len(current_string) or int(x_str) < 0:
+
+    try:
+        if int(x_str) >= len(current_string) or int(x_str) < 0:
+            return ''
+
+        else:
+            index = current_string[int(x_str)]
+            print(index)
+            return str(index)
+    except ValueError:
         return ''
-    else:
-
-        index = current_string[int(x_str)]
-        print(index)
-        return index
-
 
 def undo():
     global current_string
