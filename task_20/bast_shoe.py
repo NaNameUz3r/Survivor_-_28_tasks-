@@ -57,7 +57,7 @@ def BastShoe(command):
     return current_string
 
 
-def append_str(x_str):
+def append_str(S):
     global current_string
     global undo_buffer
     global curr_idx
@@ -68,10 +68,10 @@ def append_str(x_str):
         curr_idx = 1
 
     if len(undo_buffer) == 0:
-        current_string = x_str
+        current_string = S
         undo_buffer.append(current_string)
     else:
-        current_string = undo_buffer[-1] + x_str
+        current_string = undo_buffer[-1] + S
         undo_buffer.append(current_string)
 
     return current_string
@@ -100,15 +100,14 @@ def delete(N):
         return current_string
 
 
-def feedback_index(x_str):
+def feedback_index(i):
     global current_string
 
     try:
-        if int(x_str) > len(current_string) or int(x_str) < 0:
+        if int(i) > len(current_string) or int(i) <= 0:
             return ''
-
         else:
-            index = current_string[int(x_str) - 1]
+            index = current_string[int(i) - 1]
             return str(index)
     except ValueError:
         return ''
@@ -140,5 +139,4 @@ def redo():
         current_string = undo_buffer[len(undo_buffer) - curr_idx]
 
     return current_string
-
 
