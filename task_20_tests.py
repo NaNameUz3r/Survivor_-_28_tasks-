@@ -39,6 +39,7 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(bast_shoe.BastShoe('2 99999'), '')
 
     def test3(self):    # false values
+        self.assertEqual(bast_shoe.BastShoe('Beacon'), '')   # this is new one
         self.assertEqual(bast_shoe.BastShoe('1 Hello'), 'Hello')
         self.assertEqual(bast_shoe.BastShoe('1'), 'Hello')
         self.assertEqual(bast_shoe.BastShoe('1123123123123'), 'Hello')
@@ -47,6 +48,7 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(bast_shoe.BastShoe('1 Hello'), 'Hello')
         self.assertEqual(bast_shoe.BastShoe('3'), '')
         self.assertEqual(bast_shoe.BastShoe('3 apple'), '')
+        self.assertEqual(bast_shoe.BastShoe('Jelly Fish'), 'Hello')   # and this
         self.assertEqual(bast_shoe.BastShoe('1 , world'), 'Hello, world')
         self.assertEqual(bast_shoe.BastShoe('4 qwertyqwerty'), 'Hello, world')
         self.assertEqual(bast_shoe.BastShoe('5 qwertyqwerty'), 'Hello, world')
@@ -70,7 +72,7 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(bast_shoe.BastShoe('3 -1'), '')
 
         self.assertEqual(bast_shoe.BastShoe('1 , world!'), 'Hello, world!')
-        self.assertEqual(bast_shoe.BastShoe('3 7'), ' ')  # Пробел ведь - Символ!! Символ есть - возвращаем!!!
+        self.assertEqual(bast_shoe.BastShoe('3 7'), ' ')  # Space is symbol! Return space!
         self.assertEqual(bast_shoe.BastShoe('3 13'), '!')
         self.assertEqual(bast_shoe.BastShoe('4'), 'Hello')
         self.assertEqual(bast_shoe.BastShoe('3 0'), '')
@@ -102,16 +104,32 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(bast_shoe.BastShoe('2 1000'), '')
         self.assertEqual(bast_shoe.BastShoe('3 1'), '')
 
-        test_str = '1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ' \
+        test_command = '1 '
+        test_str = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ' \
                    'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' \
                    'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate ' \
                    'velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' \
                    'proident, sunt in culpa qui officia deserunt mollit anim id est laborum. '
 
-        self.assertEqual(bast_shoe.BastShoe(test_str), test_str[2:])
+        self.assertEqual(bast_shoe.BastShoe(test_command + test_str), test_str)
 
-        for i in range(1, len(test_str[2:])):
-            self.assertEqual(bast_shoe.BastShoe('3 ' + str(i)), test_str[2:][i - 1])
+        for i in range(1, len(test_str)):
+            self.assertEqual(bast_shoe.BastShoe('3 ' + str(i)), test_str[i - 1])
+
+        self.assertEqual(bast_shoe.BastShoe('2 25'), 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ' \
+                   'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' \
+                   'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate ' \
+                   'velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' \
+                   'proident, sunt in culpa qui officia deserunt mol')
+
+        test_str = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut ' \
+                   'labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ' \
+                   'nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate ' \
+                   'velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non ' \
+                   'proident, sunt in culpa qui officia deserunt mol'
+
+        for i in range(1, len(test_str)):
+            self.assertEqual(bast_shoe.BastShoe('3 ' + str(i)), test_str[i - 1])
 
 
 if __name__ == '__main__':

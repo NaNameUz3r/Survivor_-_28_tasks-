@@ -13,8 +13,11 @@ def BastShoe(command):
     if command == '':
         return current_string
 
-    input_data = command.split(' ', 1)
-    cmd = int(input_data[0])
+    try:
+        input_data = command.split(' ', 1)
+        cmd = int(input_data[0])
+    except ValueError:
+        return current_string
 
     if len(input_data) > 1:
         string = input_data[1]
@@ -104,6 +107,7 @@ def feedback_index(i):
     global current_string
 
     try:
+
         if int(i) > len(current_string) or int(i) <= 0:
             return ''
         else:
