@@ -108,10 +108,10 @@ def feedback_index(i):
 
     try:
 
-        if int(i) > len(current_string) or int(i) <= 0:
+        if int(i) >= len(current_string) or int(i) < 0:
             return ''
         else:
-            index = current_string[int(i) - 1]
+            index = current_string[int(i)]
             return str(index)
     except ValueError:
         return ''
