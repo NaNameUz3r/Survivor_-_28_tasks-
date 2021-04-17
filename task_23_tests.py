@@ -18,6 +18,11 @@ class TankRushTest(unittest.TestCase):
         self.assertEqual(tree_of_life.TreeOfLife(3, 4, 11, [".+..", "..+.", ".+.."]), ['...+', '+...', '...+'])
         self.assertEqual(tree_of_life.TreeOfLife(3, 4, 12, [".+..", "..+.", ".+.."]), ['++++', '++++', '++++'])
 
+    def test_regression_2(self):
+        self.assertEqual(tree_of_life.TreeOfLife(1, 1, 1, ["+"]), ['+'])
+        self.assertEqual(tree_of_life.TreeOfLife(1, 1, 2, ["+"]), ['+'])
+        self.assertEqual(tree_of_life.TreeOfLife(1, 1, 3, ["+"]), ['.'])
+        self.assertEqual(tree_of_life.TreeOfLife(1, 1, 4, ["+"]), ['+'])
 
 if __name__ == '__main__':
     unittest.main()
