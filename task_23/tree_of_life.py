@@ -17,7 +17,7 @@ def TreeOfLife(H, W, N, tree):
             elif start_list[i][j] == '+':
                 work_list[i].append([1, 0])
 
-    for year in range(2, N + 1):
+    for year in range(2, N + 2):
         for row in work_list:
             for item in row:
                 item[0] += 1
