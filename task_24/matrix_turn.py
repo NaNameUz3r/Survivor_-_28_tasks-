@@ -12,9 +12,10 @@ def MatrixTurn(Matrix, M, N, T):
 
     for row in relist_matrix:
         join_rows.append(''.join(row))
-    
-    Matrix = join_rows
-    return Matrix
+
+    for i in range(len(Matrix)):
+        Matrix[i] = join_rows[i]
+
 
 
 def matrix_step_rotate(matrix):
@@ -57,3 +58,4 @@ def matrix_step_rotate(matrix):
         left += 1
 
     return matrix
+
