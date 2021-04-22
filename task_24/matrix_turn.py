@@ -25,8 +25,7 @@ def matrix_step_rotate(matrix):
     right = len(matrix[0]) - 1
 
     while left < right and top < bottom:
-
-       prev = matrix[top + 1][left]
+        prev = matrix[top + 1][left]
 
         for i in range(left, right + 1):
             curr = matrix[top][i]
