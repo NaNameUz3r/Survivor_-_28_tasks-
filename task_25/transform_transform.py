@@ -1,17 +1,16 @@
 def transform(numbers_to_transform):
 
-    B = []
-
-    for i in range(0, len(numbers_to_transform) - 1):
-        for j in range(0, len(numbers_to_transform) - i - 1):
-            k = i + j
-            try:
-                clown = max(numbers_to_transform[j:k])
-                B.append(clown)
-            except ValueError:
-                continue
-
-    return B
+    back_keys = []
+    coef = 0
+    for outer_index in range(0, len(numbers_to_transform)):
+        for inner_index in range(0, len(numbers_to_transform) - outer_index):
+            coef = outer_index + inner_index
+            major_number = 0
+            for find_max in range(inner_index, coef + 1):
+                if major_number <= numbers_to_transform[find_max]:
+                    major_number = numbers_to_transform[find_max]
+            back_keys.append(major_number)
+    return back_keys
 
 
 def TransformTransform(A, N):
