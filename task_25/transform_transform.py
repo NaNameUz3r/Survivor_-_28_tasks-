@@ -1,14 +1,21 @@
-def TransformTransform(A, N):
+def transform(numbers_to_transform):
 
     B = []
 
-    for i in range(len(A) - 1):
-        for j in range(len(A) - i - 1):
+    for i in range(0, len(numbers_to_transform) - 1):
+        for j in range(0, len(numbers_to_transform) - i - 1):
             k = i + j
-            clown = max(A[j:k])
-            B.append(clown)
+            try:
+                clown = max(numbers_to_transform[j:k])
+                B.append(clown)
+            except ValueError:
+                continue
 
-    TransformTransform(B, N)
+    return B
 
-    return sum(B) % 2 == 0
+
+def TransformTransform(A, N):
+
+    key = transform(transform(A))
+    return sum(key) % 2 == 0
 
