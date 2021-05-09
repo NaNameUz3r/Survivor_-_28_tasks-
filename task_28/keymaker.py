@@ -5,23 +5,18 @@ def Keymaker(k):
     for i in range(len(doors)):
         doors[i] = True
 
-
     for i in range(1, len(doors), 2):
         doors[i] = False
 
+    step = 0
+    for _ in range(2, k):
+        for i in range(2 + step, len(doors), 3 + step):
+            if doors[i]:
+                doors[i] = False
+            elif not doors[i]:
+                doors[i] = True
+        step += 1
 
-    for i in range(2, len(doors), 3):
-        if doors[i]:
-            doors[i] = False
-        elif not doors[i]:
-            doors[i] = True
-
-
-    for i in range(3, len(doors)):
-        if doors[i]:
-            doors[i] = False
-        elif not doors[i]:
-            doors[i] = True
 
     result = ''
     for i in doors:
