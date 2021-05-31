@@ -12,9 +12,9 @@ def MisterRobot(N, data):
 
     sorted_data = sorted(data)
 
-    found = True
-    while found:
-        found = False
+    brute_force_success = True
+    while brute_force_success:
+        brute_force_success = False
         for i in range(len(data) - 2):
             piece = data[i:i+3]
 
@@ -22,9 +22,9 @@ def MisterRobot(N, data):
                 refer = data[i:i+3]
                 data[i:i+3] = swapper(piece)
                 if data[i:i+3] == refer:
-                    found = False
+                    brute_force_success = False
                 else:
-                    found = True
+                    brute_force_success = True
 
     if data == sorted_data:
         return True
