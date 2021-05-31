@@ -21,5 +21,5 @@ def TankRush(H1, W1, S1, H2, W2, S2):
                 global_found = True
                 break
 
-    return global_match_flag
+    return global_found
 
