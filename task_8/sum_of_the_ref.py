@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-
 def SumOfThe(N, data):
 
     for i in range(N):
-        sum_candidate = temp_data[i]
-        if sum(data) == sum_candidate:
+        data_copy_to_process = data.copy()
+        sum_candidate = data_copy_to_process.pop(i)
+        if sum(data_copy_to_process) == sum_candidate:
             return sum_candidate
+
