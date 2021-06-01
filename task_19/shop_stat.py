@@ -1,18 +1,23 @@
 def ShopOLAP(N, items):
 
-    item_list = items
-    item_dict = {}
+    items_list = items
+    sales_stat_container = {}
 
-    for i in item_list:
-        if i.split()[0] not in item_dict:
-            item_dict[i.split()[0]] = int(i.split()[1])
+    for item in items_list:
+
+        item_name = item.split()[0]
+        sales_count = int(item.split()[1])
+
+        if item_name not in sales_stat_container:
+            sales_stat_container[item_name] = sales_count
         else:
-            item_dict[i.split()[0]] += int(i.split()[1])
+            sales_stat_container[item_name] += sales_count
 
-    result = []
-    for key, value in sorted(item_dict.items(), key=lambda x: (-x[1], x[0])):
+    sorted_sales_stat = []
+    for key, value in sorted(sales_stat_container.items(),
+                             key=lambda x: (-x[1], x[0])):
 
-        result.append(key + ' ' + str(value))
+        sorted_sales_stat.append(key + ' ' + str(value))
 
-    return result
+    return sorted_sales_stat
 
