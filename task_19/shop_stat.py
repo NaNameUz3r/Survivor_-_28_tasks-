@@ -13,11 +13,11 @@ def ShopOLAP(N, items):
         else:
             sales_stat_container[item_name] += sales_count
 
-    sorted_sales_stat = []
+    sorted_sales_list = []
     for key, value in sorted(sales_stat_container.items(),
                              key=lambda x: (-x[1], x[0])):
 
-        sorted_sales_stat.append(key + ' ' + str(value))
+        sorted_sales_list.append(key + ' ' + str(value))
 
-    return sorted_sales_stat
+    return sorted_sales_list
 
