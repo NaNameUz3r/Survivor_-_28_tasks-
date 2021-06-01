@@ -1,11 +1,11 @@
 def LineAnalysis(line):
 
-    lst = line.split('*')
-    if len(lst) > 1:
-        lst.pop(0)
-        lst.pop(-1)
+    dots_patterns_list = line.split('*')
+    if len(dots_patterns_list) > 1:
+        dots_patterns_list.pop(0)
+        dots_patterns_list.pop(-1)
 
-    lst_set = set(lst)
+    unique_dots_patterns = set(dots_patterns_list)
 
-    return not len(lst_set) > 1
+    return not len(unique_dots_patterns) > 1
 
