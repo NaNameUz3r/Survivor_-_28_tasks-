@@ -1,0 +1,406 @@
+###########################################################################
+# Было:
+
+def squirrel(N):
+
+    n_fact = 1
+    for i in range(1, N + 1):
+        n_fact *= i
+
+    first_num = str(n_fact)[0]
+    return int(first_num)
+
+
+
+# Стало:
+
+def squirrel(N):
+
+    n_factorial = 1
+    for i in range(1, N + 1):
+        n_factorial *= i
+
+    first_digit = str(n_factorial)[0]
+    return int(first_digit)
+
+
+
+
+# Избавился от num в имени переменной, first_digit намного точнее отражает
+# сущность переменной.
+
+###########################################################################
+# Было:
+
+
+def PrintingCosts(Line):
+
+    toner_per_char = {' ': 0, '&': 24, ',': 7, '2': 22, '8': 23,
+                      '>': 10, 'D': 26, 'J': 18, 'P': 23, 'V': 19,
+                      '\\': 10, 'b': 25, 'h': 21, 'n': 18, 't': 17,
+                      'z': 19, '!': 9, "'": 3, '-': 7, '3': 23,
+                      '9': 26, '?': 15, 'E': 26, 'K': 21, 'Q': 31,
+                      'W': 26, ']': 18, 'c': 17, 'i': 15, 'o': 20,
+                      'u': 17, '{': 18, '"': 6, '(': 12, '.': 4,
+                      '4': 21, ':': 8, "@": 32, "F": 20, 'L': 16,
+                      'R': 28, 'X': 18, '^': 7, 'd': 25, 'j': 20,
+                      'p': 25, 'v': 13, '|': 12, '#': 24, ')': 12,
+                      '/': 10, '5': 27, ';': 11, 'A': 24, 'G': 25,
+                      'M': 28, 'S': 25, 'Y': 14, '_': 8, 'e': 23,
+                      'k': 21, 'q': 25, 'w': 19, '}': 18, '$': 29,
+                      '*': 17, '0': 22, '6': 26, '<': 10, 'B': 29,
+                      'H': 25, 'N': 25, 'T': 16, 'Z': 22, '`': 3,
+                      'f': 18, 'l': 16, 'r': 13, 'x': 13, '~': 9,
+                      '%': 22, '+': 13, '1': 19, '7': 16, '=': 14,
+                      'C': 20, 'I': 18, 'O': 26, 'U': 23, '[': 18,
+                      'a': 23, 'g': 30, 'm': 22, 's': 21, 'y': 24}
+
+    check_line = Line.replace(' ', '')
+    total_cost = 0
+
+    for symbol in check_line:
+        if symbol in toner_per_char:
+            total_cost += toner_per_char.get(symbol)
+        else:
+            total_cost += 23
+
+    return total_cost
+
+
+# Стало:
+
+def PrintingCosts(Line):
+
+    symbols_print_costs = {' ': 0, '&': 24, ',': 7, '2': 22, '8': 23,
+                          '>': 10, 'D': 26, 'J': 18, 'P': 23, 'V': 19,
+                          '\\': 10, 'b': 25, 'h': 21, 'n': 18, 't': 17,
+                          'z': 19, '!': 9, "'": 3, '-': 7, '3': 23,
+                          '9': 26, '?': 15, 'E': 26, 'K': 21, 'Q': 31,
+                          'W': 26, ']': 18, 'c': 17, 'i': 15, 'o': 20,
+                          'u': 17, '{': 18, '"': 6, '(': 12, '.': 4,
+                          '4': 21, ':': 8, "@": 32, "F": 20, 'L': 16,
+                          'R': 28, 'X': 18, '^': 7, 'd': 25, 'j': 20,
+                          'p': 25, 'v': 13, '|': 12, '#': 24, ')': 12,
+                          '/': 10, '5': 27, ';': 11, 'A': 24, 'G': 25,
+                          'M': 28, 'S': 25, 'Y': 14, '_': 8, 'e': 23,
+                          'k': 21, 'q': 25, 'w': 19, '}': 18, '$': 29,
+                          '*': 17, '0': 22, '6': 26, '<': 10, 'B': 29,
+                          'H': 25, 'N': 25, 'T': 16, 'Z': 22, '`': 3,
+                          'f': 18, 'l': 16, 'r': 13, 'x': 13, '~': 9,
+                          '%': 22, '+': 13, '1': 19, '7': 16, '=': 14,
+                          'C': 20, 'I': 18, 'O': 26, 'U': 23, '[': 18,
+                          'a': 23, 'g': 30, 'm': 22, 's': 21, 'y': 24}
+
+    space_stripped_line = Line.replace(' ', '')
+    total_print_cost = 0
+
+    for symbol in space_stripped_line:
+        if symbol in symbols_print_costs:
+            total_print_cost += symbols_print_costs.get(symbol)
+        else:
+            total_print_cost += 23
+
+    return total_print_cost
+
+
+
+# Я изменил имена переменных приведя их к общему смысловому и очевидному
+# контексту.
+
+###########################################################################
+# Было:
+
+def Unmanned(L, N, track):
+
+    road_length = L
+    abs_time = 0
+    moving_time = 0
+    time_gap = 0
+    while road_length > 0:
+
+        if len(track) == 0:
+            moving_time += road_length
+            break
+
+        if moving_time == track[0][0] and (
+                abs_time % (track[0][1] + track[0][2])) < track[0][1]:
+            time_diff = track[0][1] - (abs_time % (track[0][1] + track[0][2]))
+            time_gap += time_diff
+            moving_time += time_diff
+            abs_time += time_diff
+            if len(track) > 1:
+                track[1][0] = track[1][0] + time_gap
+            track.pop(0)
+            continue
+        abs_time += 1
+        moving_time += 1
+        road_length -= 1
+
+    return moving_time
+
+
+
+# Стало:
+
+def Unmanned(L, N, track):
+
+    road_length = L
+    absolute_time = 0
+    moving_time = 0
+    time_gap = 0
+    while road_length > 0:
+
+        if len(track) == 0:
+            moving_time += road_length
+            break
+
+        if moving_time == track[0][0] and (
+                absolute_time % (track[0][1] + track[0][2])) < track[0][1]:
+            time_diff = track[0][1] - (absolute_time % (track[0][1] + track[0][2]))
+            time_gap += time_diff
+            moving_time += time_diff
+            absolute_time += time_diff
+            if len(track) > 1:
+                track[1][0] = track[1][0] + time_gap
+            track.pop(0)
+            continue
+        absolute_time += 1
+        moving_time += 1
+        road_length -= 1
+
+    return moving_time
+
+
+
+# Изменил переменную abs_time - потому что стоит избегать таких сокращений, и
+# вообще метод abs - стандартный в  python.
+
+###########################################################################
+# Было:
+
+def MaximumDiscount(N, price):
+
+    goods = sorted(price, reverse=True)
+
+    fool_discount = sum(goods[::-1][:N // 3])
+    smart_discount = sum(goods[2::3])
+
+    return max([fool_discount, smart_discount])
+
+
+# Стало:
+
+def MaximumDiscount(N, price):
+
+    goods_prices_list = sorted(price, reverse=True)
+
+    fool_discount = sum(goods_prices_list[::-1][:N // 3])
+    smart_discount = sum(goods_prices_list[2::3])
+
+    return max([fool_discount, smart_discount])
+
+
+#  вообще неинформативное goods, короткое и непонятное имя заменил на
+#  "список цен товаров".
+
+###########################################################################
+# Было:
+
+
+def LineAnalysis(line):
+
+    lst = line.split('*')
+    if len(lst) > 1:
+        lst.pop(0)
+        lst.pop(-1)
+
+    lst_set = set(lst)
+
+    return not len(lst_set) > 1
+
+
+# Стало:
+
+def LineAnalysis(line):
+
+    dots_patterns_list = line.split('*')
+    if len(dots_patterns_list) > 1:
+        dots_patterns_list.pop(0)
+        dots_patterns_list.pop(-1)
+
+    unique_dots_patterns = set(dots_patterns_list)
+
+    return not len(unique_dots_patterns) > 1
+
+
+# заменил неприемлимые имена на вполне адекватные.
+
+###########################################################################
+# Было:
+
+
+def ShopOLAP(N, items):
+
+    item_list = items
+    item_dict = {}
+
+    for i in item_list:
+        if i.split()[0] not in item_dict:
+            item_dict[i.split()[0]] = int(i.split()[1])
+        else:
+            item_dict[i.split()[0]] += int(i.split()[1])
+
+    result = []
+    for key, value in sorted(item_dict.items(), key=lambda x: (-x[1], x[0])):
+
+        result.append(key + ' ' + str(value))
+
+    return result
+
+
+# Стало:
+
+def ShopOLAP(N, items):
+
+    items_list = items
+    sales_stat_container = {}
+
+    for item in items_list:
+
+        item_name = item.split()[0]
+        sales_count = int(item.split()[1])
+
+        if item_name not in sales_stat_container:
+            sales_stat_container[item_name] = sales_count
+        else:
+            sales_stat_container[item_name] += sales_count
+
+    sorted_sales_list = []
+    for key, value in sorted(sales_stat_container.items(),
+                             key=lambda x: (-x[1], x[0])):
+
+        sorted_sales_list.append(key + ' ' + str(value))
+
+    return sorted_sales_list
+
+
+
+# поменял, практически все имена переменных, ввел временные переменные
+# в первом цикле, чтобы избавиться от каши которая была раньше.
+# Переименовал словарь в более подходящее имя, которое хоть немного, но лучше
+# Избавился от кошмарного result
+
+###########################################################################
+# Было:
+
+
+def BiggerGreater(input):
+
+    def add_to_results(lst):
+        results.append(''.join(lst))
+
+    def permute(string, start, end):
+        if start == end:
+            add_to_results(string)
+        else:
+            for i in range(start, end + 1):
+                string[start], string[i] = string[i], string[start]
+                permute(string, start + 1, end)
+                string[start], string[i] = string[i], string[start]
+
+    input_string = input
+    results = []
+    input_length = len(input_string)
+    input_lst = list(input_string)
+
+    permute(input_lst, 0, input_length - 1)
+
+    results.sort()
+
+    input_idx = results.index(input_string)
+    if input_idx == len(results) - 1:
+        return ''
+    elif len(set(results)) == 1:
+        return ''
+    else:
+        return results[input_idx + 1]
+
+
+# Стало:
+
+
+def BiggerGreater(input):
+
+    def add_to_results(lst):
+        permuted_variants.append(''.join(lst))
+
+    def permute(string, start, end):
+        if start == end:
+            add_to_results(string)
+        else:
+            for i in range(start, end + 1):
+                string[start], string[i] = string[i], string[start]
+                permute(string, start + 1, end)
+                string[start], string[i] = string[i], string[start]
+
+    length_of_string = len(input)
+    input_word_char_list = list(input)
+    permuted_variants = []
+
+    permute(input_word_char_list, 0, length_of_string - 1)
+
+    permuted_variants.sort()
+
+    initial_word_index = permuted_variants.index(input)
+
+    if initial_word_index == len(permuted_variants) - 1:
+        next_permute = ''
+    elif len(set(permuted_variants)) == 1:
+        next_permute = ''
+    else:
+        next_permute = permuted_variants[initial_word_index + 1]
+
+    return next_permute
+
+
+# переработал имена переменных, избавился от лишней, сдела нормальный return
+
+###########################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###########################################################################
