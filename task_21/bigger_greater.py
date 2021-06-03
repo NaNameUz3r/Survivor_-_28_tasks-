@@ -1,7 +1,7 @@
 def BiggerGreater(input):
 
     def add_to_results(lst):
-        results.append(''.join(lst))
+        permuted_variants.append(''.join(lst))
 
     def permute(string, start, end):
         if start == end:
@@ -12,20 +12,21 @@ def BiggerGreater(input):
                 permute(string, start + 1, end)
                 string[start], string[i] = string[i], string[start]
 
-    input_string = input
-    results = []
-    input_length = len(input_string)
-    input_lst = list(input_string)
+    length_of_string = len(input)
+    input_word_char_list = list(input)
+    permuted_variants = []
+    
+    permute(input_word_char_list, 0, length_of_string - 1)
 
-    permute(input_lst, 0, input_length - 1)
+    permuted_variants.sort()
 
-    results.sort()
+    initial_word_index = permuted_variants.index(input)
 
-    input_idx = results.index(input_string)
-    if input_idx == len(results) - 1:
-        return ''
-    elif len(set(results)) == 1:
-        return ''
+    if initial_word_index == len(permuted_variants) - 1:
+        next_permute = ''
+    elif len(set(permuted_variants)) == 1:
+        next_permute = ''
     else:
-        return results[input_idx + 1]
+        next_permute = permuted_variants[initial_word_index + 1]
 
+    return next_permute
