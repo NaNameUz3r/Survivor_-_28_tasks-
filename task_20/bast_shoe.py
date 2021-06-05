@@ -60,7 +60,7 @@ def BastShoe(command):
     return current_string
 
 
-def append_str(S):
+def add_text(S):
     global current_string
     global undo_buffer
     global curr_idx
@@ -80,7 +80,7 @@ def append_str(S):
     return current_string
 
 
-def delete(N):
+def cut_from_end(N):
     global current_string
     global undo_buffer
     global curr_idx
@@ -103,7 +103,7 @@ def delete(N):
         return current_string
 
 
-def feedback_index(i):
+def get_symbol_by_index(i):
     global current_string
 
     try:
@@ -117,7 +117,7 @@ def feedback_index(i):
         return ''
 
 
-def undo():
+def undo_last_action():
     global current_string
     global undo_buffer
     global curr_idx
@@ -131,7 +131,7 @@ def undo():
     return current_string
 
 
-def redo():
+def redo_last_undo():
     global current_string
     global undo_buffer
     global curr_idx
