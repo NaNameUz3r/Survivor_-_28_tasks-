@@ -12,11 +12,11 @@ def BiggerGreater(input):
                 permute(string, start + 1, end)
                 string[start], string[i] = string[i], string[start]
 
-    length_of_string = len(input)
+    LENGTH_OF_STRING = len(input)
     input_word_char_list = list(input)
     permuted_variants = []
     
-    permute(input_word_char_list, 0, length_of_string - 1)
+    permute(input_word_char_list, 0, LENGTH_OF_STRING - 1)
 
     permuted_variants.sort()
 
