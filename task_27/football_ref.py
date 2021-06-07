@@ -1,12 +1,12 @@
 def first_coaching_reception(input_lst):
-    sorted_input = sorted(input_lst)
+    SORTED_INPUT = sorted(input_lst)
     list_length = len(input_lst)
     
     rearrange_success = False
     for i in range(list_length):
         for j in range(i + 1, list_length):
             input_lst[i], input_lst[j] = input_lst[j], input_lst[i]
-            if sorted_input == input_lst:
+            if SORTED_INPUT == input_lst:
                 rearrange_success = True
             else:
                 input_lst[i], input_lst[j] = input_lst[j], input_lst[i]
