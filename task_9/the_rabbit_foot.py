@@ -3,13 +3,13 @@ def TheRabbitsFoot(s, encode):
     def encrypt(string_to_encrypt):
         string_to_encrypt = string_to_encrypt.replace(' ', '')
 
-        s_length = len(string_to_encrypt)
-        s_sqrt = round((s_length ** 0.5), 2)
+        STRING_LENGTH = len(string_to_encrypt)
+        STRING_SQUARE_ROOT = round((STRING_LENGTH ** 0.5), 2)
 
-        matrix_rows = int(s_sqrt // 1)
-        matrix_cols = int(str(s_sqrt)[2:3])
+        matrix_rows = int(STRING_SQUARE_ROOT // 1)
+        matrix_cols = int(str(STRING_SQUARE_ROOT)[2:3])
 
-        while matrix_rows * matrix_cols < s_length:
+        while matrix_rows * matrix_cols < STRING_LENGTH:
             matrix_rows += 1
 
         encrypt_list = []
