@@ -1,5 +1,7 @@
 def MisterRobot(N, data):
 
+    SORTED_DATA = sorted(data)
+
     def swapper(list_to_swap):
         swap_count = 0
         while not list_to_swap[0] < list_to_swap[1] < list_to_swap[2] and (
@@ -8,9 +10,8 @@ def MisterRobot(N, data):
             swap_count += 1
         return list_to_swap
 
-    sorted_data = sorted(data)
-
     brute_force_success = True
+
     while brute_force_success:
         brute_force_success = False
         for i in range(len(data) - 2):
@@ -24,11 +25,7 @@ def MisterRobot(N, data):
                 else:
                     brute_force_success = True
 
-    if data == sorted_data:
+    if data == SORTED_DATA:
         return True
     else:
         return False
-
-
-x = MisterRobot(7, [1, 3, 4, 5, 6, 2, 7])
-print(x)
