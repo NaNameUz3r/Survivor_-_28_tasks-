@@ -1,0 +1,61 @@
+1)
+### Было:
+
+def squirrel(N):
+
+    n_factorial = 1
+    for i in range(1, N + 1):
+        n_factorial *= i
+
+    first_digit = str(n_factorial)[0]
+    return int(first_digit)
+
+### Стало:
+
+import math
+
+
+def squirrel(N):
+
+    n_factorial = 1
+    for i in range(1, N + 1):
+        n_factorial *= i
+
+    first_digit = get_first_digit(n_factorial)
+    return first_digit
+
+
+def get_first_digit(number):
+    return number // 10 ** (int(math.log(number, 10)))
+
+
+### попытался избавиться от приведения типов.
+
+################################################################################
+
+2)
+### Было:
+
+if moving_time == track[0][0] and (
+        absolute_time % (track[0][1] + track[0][2])) < track[0][1]:
+    time_diff = track[0][1] - (absolute_time % (track[0][1] + track[0][2]))
+    time_gap += time_diff
+    moving_time += time_diff
+    absolute_time += time_diff
+
+### Стало:
+
+is_moving = moving_time == track[0][0]
+time_delta = absolute_time % (track[0][1] + track[0][2])
+
+if is_moving and time_delta < track[0][1]:
+    time_diff = track[0][1] - time_delta
+    time_gap += time_diff
+    moving_time += time_diff
+    absolute_time += time_diff
+
+
+### Кусок кода стал намного читаемее благодаря введению двух переменных,
+### одна - булевая, а вторая для избежания копипасты.
+
+################################################################################
