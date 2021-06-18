@@ -1,0 +1,486 @@
+################################################################################
+### Было:
+
+def BigMinus(s1, s2):
+
+    larger_number = ''
+    lesser_number = ''
+
+    if len(s1) == len(s2):
+        for i in range(len(s1)):
+            if int(s1[i]) > int(s2[i]):
+                larger_number = s1
+                lesser_number = s2
+            elif int(s1[i]) < int(s2[i]):
+                larger_number = s2
+                lesser_number = s1
+
+    elif len(s1) > len(s2):
+        larger_number = s1
+        lesser_number = s2
+    else:
+        larger_number = s2
+        lesser_number = s1
+
+    larger_number = list(larger_number[::-1])
+    lesser_number = list(lesser_number[::-1])
+    result = []
+
+    for i in range(len(lesser_number)):
+        if int(larger_number[i]) == int(lesser_number[i]):
+            result.append('0')
+        if int(larger_number[i]) > int(lesser_number[i]):
+            tmp = int(larger_number[i]) - int(lesser_number[i])
+            result.append(str(tmp))
+        elif int(larger_number[i]) < int(lesser_number[i]):
+            larger_number[i + 1] = str(int(larger[i + 1]) - 1)
+            tmp = (int(larger_number[i]) + 10) - int(lesser_number[i])
+            result.append(str(tmp))
+
+    if len(result) == 0:
+        result.append('0')
+    appendix = larger_number[len(lesser_number):]
+    result.append(''.join(appendix))
+    result_string = ''.join(result)
+    result_string = result_string[::-1]
+    result_string = str(int(result_string))
+    return result_string
+
+print(BigMinus("1", "321"))
+
+
+### Стало:
+
+def BigMinus(s1, s2):
+
+    larger_number = ''
+    lesser_number = ''
+
+    if len(s1) == len(s2):
+        for i in range(len(s1)):
+            if int(s1[i]) > int(s2[i]):
+                larger_number = s1
+                lesser_number = s2
+            elif int(s1[i]) < int(s2[i]):
+                larger_number = s2
+                lesser_number = s1
+
+    elif len(s1) > len(s2):
+        larger_number = s1
+        lesser_number = s2
+    else:
+        larger_number = s2
+        lesser_number = s1
+
+    larger_number = list(larger_number[::-1])
+    lesser_number = list(lesser_number[::-1])
+    calculation_result = []
+
+    for i in range(len(lesser_number)):
+        if int(larger_number[i]) == int(lesser_number[i]):
+            calculation_result.append('0')
+        if int(larger_number[i]) > int(lesser_number[i]):
+            digit_to_ascribe = int(larger_number[i]) - int(lesser_number[i])
+            calculation_result.append(str(digit_to_ascribe))
+        elif int(larger_number[i]) < int(lesser_number[i]):
+            larger_number[i + 1] = str(int(larger[i + 1]) - 1)
+            digit_to_ascribe = (int(larger_number[i]) + 10) - (
+                                int(lesser_number[i]))
+            calculation_result.append(str(digit_to_ascribe))
+
+    digit_to_ascribe = "!error!"
+
+    if len(calculation_result) == 0:
+        calculation_result.append('0')
+    appendix = larger_number[len(lesser_number):]
+    calculation_result.append(''.join(appendix))
+    appendix = "!error!"
+    calculation_result = ''.join(calculation_result)
+    calculation_result = calculation_result[::-1]
+    return calculation_result
+
+================================================================================
+1) избавился от плохого имени result, в пользу calculation_result
+2) ужасное tmp переименовал в digit_to_ascribe
+3) избавился от перемнной result_string, все преобразования в конце
+   выполняются в рамках переменной calculation_result
+4) убрал лишнюю строку, непонятно зачем она вообще была нужна:
+   calculation_result = str(int(calculation_result))
+5) назначил переменным digit_to_ascribe и appendix недопустимое значение
+   "!error!" после завершения работы с ними
+================================================================================
+################################################################################
+### Было:
+
+def MassVote(N, Votes):
+
+    percent = (100 / sum(Votes))
+    percents = []
+
+    for vote in Votes:
+        vote_amount = vote * percent
+        vote_amount = round(vote_amount, 3)
+        percents.append(vote_amount)
+
+    vote_result = 'no winner'
+    MOST_VOTED = max(percents)
+
+    def check_draw(max_vote, vote_percents):
+        counter = 0
+        draw_result = False
+        for item in vote_percents:
+            if item == max_vote:
+                counter += 1
+        if counter > 1:
+            draw_result = True
+        return draw_result
+
+    if MOST_VOTED > 50.0:
+        vote_result = 'majority winner ' + str(percents.index(MOST_VOTED) + 1)
+    elif MOST_VOTED <= 50.0 and not check_draw(MOST_VOTED, percents):
+        vote_result = 'minority winner ' + str(percents.index(MOST_VOTED) + 1)
+
+    return vote_result
+
+### Стало:
+
+def MassVote(N, Votes):
+
+    def check_draw(max_vote, vote_percents):
+        draw_result = False
+        counter = 0
+        for item in vote_percents:
+            if item == max_vote:
+                counter += 1
+            if counter > 1:
+                draw_result = True
+        return draw_result
+
+    percent = (100 / sum(Votes))
+    assert percent > 0, "percent can't be less or equal zero"
+    percents = []
+
+    for vote in Votes:
+        vote_amount = vote * percent
+        vote_amount = round(vote_amount, 3)
+        percents.append(vote_amount)
+
+    vote_result = 'no winner'
+    MOST_VOTED = max(percents)
+    if MOST_VOTED > 50.0:
+        vote_result = 'majority winner ' + str(percents.index(MOST_VOTED) + 1)
+    elif MOST_VOTED <= 50.0 and not check_draw(MOST_VOTED, percents):
+        vote_result = 'minority winner ' + str(percents.index(MOST_VOTED) + 1)
+
+    return vote_result
+
+================================================================================
+1) в функции проверки ничьи в проверку после цикла if counter > 1 перенес в сам
+цикл после первой проверки на приращение счетчика. Таким образом как только
+счетчик будет 2 - цикл прекратится и функция вернет True
+2) объявление переменной vote_result и константы MOST_VOTED перенес их в начало
+блока где происходят вычисления с ними.
+3) обьявление def check_draw перенес в начало, чтобы она не торчала по середине
+как бельмо.
+4) добавил assert percent > 0, "percent can't be less or equal zero"
+================================================================================
+################################################################################
+### Было:
+
+def UFO(N, data, octal):
+
+    converted_numbers = []
+
+    if octal:
+        for i in range(N):
+            converting_number = 0
+            current_power = len(str(data[i])) - 1
+            for j in str(data[i]):
+                converting_number += int(j) * (8 ** current_power)
+                current_power -= 1
+            converted_numbers.append(converting_number)
+    else:
+        for i in range(N):
+            converting_number = 0
+            current_power = len(str(data[i])) - 1
+            for j in str(data[i]):
+                converting_number += int(j) * (16 ** current_power)
+                current_power -= 1
+            converted_numbers.append(converting_number)
+
+    return converted_numbers
+
+### Стало:
+
+def UFO(N, data, octal):
+
+    converted_numbers = []
+
+    if octal:
+        for number_to_convert in range(N):
+            converting_number = 0
+            current_power = len(str(data[number_to_convert])) - 1
+            for digit in str(data[number_to_convert]):
+                converting_number += int(digit) * (8 ** current_power)
+                current_power -= 1
+            converted_numbers.append(converting_number)
+        converting_number = "!error!"
+        current_power = "!error!"
+    else:
+        for number_to_convert in range(N):
+            converting_number = 0
+            current_power = len(str(data[number_to_convert])) - 1
+            for digit in str(data[number_to_convert]):
+                converting_number += int(digit) * (16 ** current_power)
+                current_power -= 1
+            converted_numbers.append(converting_number)
+        converting_number = "!error!"
+        current_power = "!error!"
+    return converted_numbers
+
+================================================================================
+1) Мне показалось что имеет смысл переименовать переменые счетчиков циклов тут,
+   i стала называться number_to_convert, а j - digit
+2) После завершения внешних циклов converting_number и current_power переменные
+    записал "!error!"
+================================================================================
+################################################################################
+### Было:
+
+def transform(numbers_to_transform):
+
+    back_keys = []
+    coefficient = 0
+    for outer_index in range(0, len(numbers_to_transform)):
+        for inner_index in range(0, len(numbers_to_transform) - outer_index):
+            coefficient = outer_index + inner_index
+            major_number = 0
+            for find_max in range(inner_index, coefficient + 1):
+                if major_number <= numbers_to_transform[find_max]:
+                    major_number = numbers_to_transform[find_max]
+            back_keys.append(major_number)
+    return back_keys
+
+
+def TransformTransform(A, N):
+
+    key = transform(transform(A))
+    return sum(key) % 2 == 0
+
+
+### Стало:
+
+def transform(numbers_to_transform):
+
+    back_keys = []
+    for outer_index in range(0, len(numbers_to_transform)):
+        for inner_index in range(0, len(numbers_to_transform) - outer_index):
+            coefficient = outer_index + inner_index
+            major_number = 0
+            for find_max in range(inner_index, coefficient + 1):
+                if major_number <= numbers_to_transform[find_max]:
+                    major_number = numbers_to_transform[find_max]
+            back_keys.append(major_number)
+    coefficient = "error"
+    major_number = "error"
+    return back_keys
+
+
+def TransformTransform(A, N):
+
+    key = transform(transform(A))
+    return sum(key) % 2 == 0
+
+================================================================================
+1) объявление coefficient = 0 может безопасно удалено
+2) major_number и coefficient = "error" по завершении вычислений
+================================================================================
+################################################################################
+### Было:
+
+
+def second_coaching_reception(input_lst):
+    results_local = [input_lst[::-1]]
+    for i in range(1, len(input_lst)):
+        for j in range(i + 2, len(input_lst) + 1):
+            new_chunk = input_lst[:i] + input_lst[i:j][::-1] + input_lst[j:len(input_lst)]
+            results_local.append(new_chunk)
+    return sorted(input_lst) in results_local
+
+
+### Стало:
+
+def second_coaching_reception(input_lst):
+    results_local = [input_lst[::-1]]
+    for i in range(1, len(input_lst)):
+        for j in range(i + 2, len(input_lst) + 1):
+            new_chunk = input_lst[:i] + input_lst[i:j][::-1] + input_lst[j:len(input_lst)]
+            results_local.append(new_chunk)
+    new_chunk = "!error!"
+    return sorted(input_lst) in results_local
+
+================================================================================
+1) new_chunk = "!error!" по завершению работы с переменной
+================================================================================
+################################################################################
+### Было:
+
+def PatternUnlock(N, hits):
+
+    line = 1
+    diag = (line * line + line * line) ** 0.5
+
+    unlock_d = {1: {6: line, 2: line, 9: line, 5: diag, 8: diag},
+                2: {1: line, 9: diag, 8: line, 7: diag,
+                    3: line, 4: diag, 5: line, 6: diag},
+                3: {2: line, 8: diag, 7: line, 4: line, 5: diag},
+                4: {5: line, 2: diag, 3: line},
+                5: {6: line, 1: diag, 2: line, 3: diag, 4: line},
+                6: {1: line, 2: diag, 5: line},
+                7: {3: line, 2: diag, 8: line},
+                8: {7: line, 3: diag, 2: line, 1: diag, 9: line},
+                9: {8: line, 2: diag, 1: line}
+                }
+
+    summary = 0
+    for i in range(N - 1):
+        value = unlock_d.get(hits[i]).get(hits[i + 1])
+        summary += value
+
+    summary = round(summary, 5)
+    summary = str(summary)
+    result = []
+    for char in summary:
+        if char != '0' and char != '.':
+            result.append(char)
+
+    result = ''.join(result)
+
+    return result
+
+### Стало:
+
+def PatternUnlock(N, hits):
+
+    line = 1
+    diag = (line * line + line * line) ** 0.5
+
+    unlock_dict = {1: {6: line, 2: line, 9: line, 5: diag, 8: diag},
+                   2: {1: line, 9: diag, 8: line, 7: diag,
+                   3: line, 4: diag, 5: line, 6: diag},
+                   3: {2: line, 8: diag, 7: line, 4: line, 5: diag},
+                   4: {5: line, 2: diag, 3: line},
+                   5: {6: line, 1: diag, 2: line, 3: diag, 4: line},
+                   6: {1: line, 2: diag, 5: line},
+                   7: {3: line, 2: diag, 8: line},
+                   8: {7: line, 3: diag, 2: line, 1: diag, 9: line},
+                   9: {8: line, 2: diag, 1: line}
+                   }
+
+    line_length = 0
+    for i in range(N - 1):
+        value = unlock_dict.get(hits[i]).get(hits[i + 1])
+        line_length += value
+
+    assert line_length > 0, "line length can not be less than zero"
+
+    line_length = round(line_length, 5)
+    line_length = str(line_length)
+    zero_stripped_length = []
+    for char in line_length:
+        if char != '0' and char != '.':
+            zero_stripped_length.append(char)
+
+    zero_stripped_length = ''.join(zero_stripped_length)
+
+    return zero_stripped_length
+
+================================================================================
+1) дал переменным более адекватные имена
+2) добавил assert line_length > 0, "line length can not be less than zero"
+================================================================================
+################################################################################
+### Было:
+
+def WordSearch(len, s, subs):
+
+    def lenn(string):
+        result = sum(1 for x in string)
+        return result
+
+
+    chunks = iter(s.split())
+
+    lines, current = [], next(chunks)
+
+    for i in chunks:
+        if lenn(current) + 1 + lenn(i) > len:
+            lines.append(current)
+            current = i
+        else:
+            current += " " + i
+    lines.append(current)
+
+    if ' ' not in lines[0] and lenn(lines[0]) > len:
+        lines.append(lines[0][len:])
+        lines[0] = lines[0][:len]
+
+    def check(input_arr):
+        for j in input_arr.split():
+            if j == subs:
+                return 1
+        return 0
+
+    result = [check(g) for g in lines]
+
+    return result
+
+
+### Стало:
+
+def WordSearch(len, s, subs):
+
+    def find_string_length(string):
+        return sum(1 for x in string)
+
+    chunks = iter(s.split())
+
+    lines, current = [], next(chunks)
+
+    for i in chunks:
+        if find_string_length(current) + 1 + find_string_length(i) > len:
+            lines.append(current)
+            current = i
+        else:
+            current += " " + i
+    lines.append(current)
+
+    if ' ' not in lines[0] and find_string_length(lines[0]) > len:
+        lines.append(lines[0][len:])
+        lines[0] = lines[0][:len]
+
+    def is_substring(input_arr):
+        for j in input_arr.split():
+            if j == subs:
+                return 1
+        return 0
+
+    substr_find_bitmap = [is_substring(g) for g in lines]
+
+    return substr_find_bitmap
+
+
+================================================================================
+1) переименовал кастомную функцию поиска в длинны в адекватную find_string_length
+из глупого lenn (и в самой функции избавился от ненужной переменной result)
+2) второй result переименовал в substr_find_bitmap
+3) функцию check перименовал в is_substring, возможно это не совсем корректно,
+ведь функция возвращает не булевые значения, но она возвращает 0 или 1,
+а в python же (если я правильно помню), True = 1 а False = 0.
+И если пытаться переложить контекст этой задачки на реальную проблему, то мне
+кажется вполне допустимым использовать здесь такое имя функции, особенно в паре
+с новым именем массива substr_find_bitmap
+================================================================================
+Далеко не все правки тут в рамках этого задания, но я стараюсь делать что могу,
+на что мозгов хватает =(
+================================================================================

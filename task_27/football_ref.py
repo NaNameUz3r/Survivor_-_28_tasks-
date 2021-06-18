@@ -1,4 +1,5 @@
 def first_coaching_reception(input_lst):
+
     SORTED_INPUT = sorted(input_lst)
     list_length = len(input_lst)
     
@@ -19,7 +20,7 @@ def second_coaching_reception(input_lst):
         for j in range(i + 2, len(input_lst) + 1):
             new_chunk = input_lst[:i] + input_lst[i:j][::-1] + input_lst[j:len(input_lst)]
             results_local.append(new_chunk)
-
+    new_chunk = "!error!"
     return sorted(input_lst) in results_local
 
 

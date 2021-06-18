@@ -19,27 +19,33 @@ def BigMinus(s1, s2):
         larger_number = s2
         lesser_number = s1
 
-    larger_number = list(larger[::-1])
-    lesser_number = list(lesser[::-1])
-    result = []
+    larger_number = list(larger_number[::-1])
+    lesser_number = list(lesser_number[::-1])
+    calculation_result = []
 
     for i in range(len(lesser_number)):
         if int(larger_number[i]) == int(lesser_number[i]):
-            result.append('0')
+            calculation_result.append('0')
         if int(larger_number[i]) > int(lesser_number[i]):
-            tmp = int(larger_number[i]) - int(lesser_number[i])
-            result.append(str(tmp))
+            digit_to_ascribe = int(larger_number[i]) - int(lesser_number[i])
+            calculation_result.append(str(digit_to_ascribe))
         elif int(larger_number[i]) < int(lesser_number[i]):
             larger_number[i + 1] = str(int(larger[i + 1]) - 1)
-            tmp = (int(larger_number[i]) + 10) - int(lesser_number[i])
-            result.append(str(tmp))
+            digit_to_ascribe = (int(larger_number[i]) + 10) - (
+                                int(lesser_number[i]))
+            calculation_result.append(str(digit_to_ascribe))
 
-    if len(result) == 0:
-        result.append('0')
+    digit_to_ascribe = "!error!"
+
+    if len(calculation_result) == 0:
+        calculation_result.append('0')
     appendix = larger_number[len(lesser_number):]
-    result.append(''.join(appendix))
-    result_string = ''.join(result)
-    result_string = result_string[::-1]
-    result_string = str(int(result_string))
-    return result_string
+    calculation_result.append(''.join(appendix))
+    appendix = "!error!"
+    calculation_result = ''.join(calculation_result)
+    calculation_result = calculation_result[::-1]
+    return calculation_result
 
+
+print(type(BigMinus("1", "321")))
+print((BigMinus("1", "321")))

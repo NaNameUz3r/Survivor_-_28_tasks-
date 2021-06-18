@@ -3,21 +3,24 @@ def UFO(N, data, octal):
     converted_numbers = []
 
     if octal:
-        for i in range(N):
+        for number_to_convert in range(N):
             converting_number = 0
-            current_power = len(str(data[i])) - 1
-            for j in str(data[i]):
-                converting_number += int(j) * (8 ** current_power)
+            current_power = len(str(data[number_to_convert])) - 1
+            for digit in str(data[number_to_convert]):
+                converting_number += int(digit) * (8 ** current_power)
                 current_power -= 1
-            converted.append(converting_number)
+            converted_numbers.append(converting_number)
+        converting_number = "!error!"
+        current_power = "!error!"
     else:
-        for i in range(N):
+        for number_to_convert in range(N):
             converting_number = 0
-            current_power = len(str(data[i])) - 1
-            for j in str(data[i]):
-                converting_number += int(j) * (16 ** current_power)
+            current_power = len(str(data[number_to_convert])) - 1
+            for digit in str(data[number_to_convert]):
+                converting_number += int(digit) * (16 ** current_power)
                 current_power -= 1
-            converted.append(converting_number)
-    
+            converted_numbers.append(converting_number)
+        converting_number = "!error!"
+        current_power = "!error!"
     return converted_numbers
 
