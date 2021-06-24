@@ -1,0 +1,195 @@
+################################################################################
+### 1 пример. Было:
+
+def BigMinus(s1, s2):
+
+    def calculate_difference(lesser, bigger):
+        calculation_result = []
+
+        for i in range(len(lesser)):
+            if int(bigger[i]) == int(lesser[i]):
+                calculation_result.append('0')
+            if int(bigger[i]) > int(lesser[i]):
+                digit_to_ascribe = int(bigger[i]) - int(lesser[i])
+                calculation_result.append(str(digit_to_ascribe))
+            elif int(bigger[i]) < int(lesser[i]):
+                bigger[i + 1] = str(int(larger[i + 1]) - 1)
+                digit_to_ascribe = (int(bigger[i]) + 10) - (
+                    int(lesser[i]))
+                calculation_result.append(str(digit_to_ascribe))
+
+        digit_to_ascribe = "!error!"
+
+        if len(calculation_result) == 0:
+            calculation_result.append('0')
+        appendix = bigger[len(lesser):]
+        calculation_result.append(''.join(appendix))
+        appendix = "!error!"
+        calculation_result = ''.join(calculation_result)
+        calculation_result = calculation_result[::-1]
+        return calculation_result
+
+***
+### Стало:
+
+def BigMinus(s1, s2):
+
+    def calculate_difference(lesser, bigger):
+        calculation_result = []
+
+        for i in range(len(lesser)):
+            if int(bigger[i]) == int(lesser[i]):
+                calculation_result.append('0')
+            if int(bigger[i]) > int(lesser[i]):
+                digit_to_ascribe = int(bigger[i]) - int(lesser[i])
+                calculation_result.append(digit_to_ascribe)
+            elif int(bigger[i]) < int(lesser[i]):
+                bigger[i + 1] = str(int(larger[i + 1]) - 1)
+                digit_to_ascribe = (int(bigger[i]) + 10) - (
+                    int(lesser[i]))
+                calculation_result.append(str(digit_to_ascribe))
+
+        digit_to_ascribe = "!error!"
+
+        if len(calculation_result) == 0:
+            calculation_result.append('0')
+        appendix = bigger[len(lesser):]
+        calculation_result.append(''.join(appendix))
+        appendix = "!error!"
+        calculation_result = ''.join(calculation_result)
+        calculation_result = calculation_result[::-1]
+        return calculation_result
+
+================================================================================
+Всё что я поменял это убрал приведение к типу str в строке 11 - там это не надо.
+Что по поводу массива, то calculation_result напрямую не индексируется, я в него только дописываю новые эллементы для последующего join.
+================================================================================
+
+################################################################################
+### 2 пример:
+
+https://github.com/NaNameUz3r/Survivor_-_28_tasks-/blob/main/task_12/mass_vote_ref.py
+
+================================================================================
+Здесь тоже небольшой массив в котором несколько значений хранятся, прямой
+индексации к элементам нет. Значит приемлимо.
+================================================================================
+
+################################################################################
+### 3 пример:
+
+https://github.com/NaNameUz3r/Survivor_-_28_tasks-/blob/main/task_13/ufo_ref.py
+
+================================================================================
+И снова я использую массив чтобы просто в него append.
+Похожие задачки.
+================================================================================
+################################################################################
+### 4 пример:
+
+https://github.com/NaNameUz3r/Survivor_-_28_tasks-/blob/main/task_19/shop_stat_ref.py
+
+================================================================================
+Здесь я изначально работаю с dictionary, лист (массив) используется как контейнер
+для результатов сортировки, и далее нигде не индексируется напрямую и никак не
+используется (return и на выход :)
+================================================================================
+
+################################################################################
+### 5 пример:
+https://github.com/NaNameUz3r/Survivor_-_28_tasks-/blob/main/task_21/bigger_greater_ref.py
+
+================================================================================
+Я до сих пор помню как ломал голову над этой задачей. Тут есть массив и не один.
+Второй - просто хранит результаты пермутации, и к нему прямая индексация идет в
+функции поиска следующего элемента после сортировки, с набором проверок.
+Первый же массив у нас создается из строки на входе для того чтобы менять местами
+символы в рекурсивной функции. Так как строки в python иммутабельны приходится
+делать массив. Как тут можно обойтись без него, я к сожеланию придумать не могу.
+================================================================================
+################################################################################
+### 6 пример. Было:
+
+def SherlockValidString(s):
+
+    letters_dict = {}
+
+    for letter in s:
+        if letter not in letters_dict:
+            letters_dict[letter] = 1
+        else:
+            letters_dict[letter] += 1
+
+    sorted_dict = {}
+    sorted_keys = sorted(letters_dict, key=letters_dict.get)
+    for item in sorted_keys:
+        sorted_dict[item] = letters_dict[item]
+
+    values_list = list(sorted_dict.values())
+
+    repeats = max(values_list, key=values_list.count)
+
+    check = True
+    for i in range(len(values_list)):
+        if values_list[i] == repeats:
+            continue
+        elif values_list[i] - 1 == repeats and check or (
+            values_list[i] - 1 == 0 and check
+        ):
+            check = False
+            continue
+        else:
+            break
+    else:
+        return True
+    return False
+
+
+### Стало:
+
+def SherlockValidString(s):
+
+    letters_dict = {}
+
+    for letter in s:
+        if letter not in letters_dict:
+            letters_dict[letter] = 1
+        else:
+            letters_dict[letter] += 1
+
+    sorted_dict = {}
+    sorted_keys = sorted(letters_dict, key=letters_dict.get)
+    for item in sorted_keys:
+        sorted_dict[item] = letters_dict[item]
+
+    values_list = list(sorted_dict.values())
+
+    repeats = max(values_list, key=values_list.count)
+
+    check = True
+    for item in values_list:
+        if item == repeats:
+            continue
+        elif item - 1 == repeats and check or (
+            item - 1 == 0 and check
+        ):
+            check = False
+            continue
+        else:
+            break
+    else:
+        return True
+    return False
+
+================================================================================
+От листа(массива?) я не избавился, но избавился от индексного обращения благодаря
+последовательной "питонячей" итерации в цикле.
+================================================================================
+################################################################################
+### 7 пример. Было:
+
+https://github.com/NaNameUz3r/Survivor_-_28_tasks-/blob/main/task_25/transform_transform.py
+
+================================================================================
+Тут я снова использую лист(массив???) только чтобы в него дописывать
+================================================================================
