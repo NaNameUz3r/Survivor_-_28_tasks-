@@ -1,0 +1,346 @@
+################################################################################
+### Было:
+
+def BigMinus(s1, s2):
+
+    larger_number = ''
+    lesser_number = ''
+
+    if len(s1) == len(s2):
+        for i in range(len(s1)):
+            if int(s1[i]) > int(s2[i]):
+                larger_number = s1
+                lesser_number = s2
+            elif int(s1[i]) < int(s2[i]):
+                larger_number = s2
+                lesser_number = s1
+
+    elif len(s1) > len(s2):
+        larger_number = s1
+        lesser_number = s2
+    else:
+        larger_number = s2
+        lesser_number = s1
+
+    larger_number = list(larger_number[::-1])
+    lesser_number = list(lesser_number[::-1])
+    calculation_result = []
+
+    for i in range(len(lesser_number)):
+        if int(larger_number[i]) == int(lesser_number[i]):
+            calculation_result.append('0')
+        if int(larger_number[i]) > int(lesser_number[i]):
+            digit_to_ascribe = int(larger_number[i]) - int(lesser_number[i])
+            calculation_result.append(str(digit_to_ascribe))
+        elif int(larger_number[i]) < int(lesser_number[i]):
+            larger_number[i + 1] = str(int(larger[i + 1]) - 1)
+            digit_to_ascribe = (int(larger_number[i]) + 10) - (
+                                int(lesser_number[i]))
+            calculation_result.append(str(digit_to_ascribe))
+
+    digit_to_ascribe = "!error!"
+
+    if len(calculation_result) == 0:
+        calculation_result.append('0')
+    appendix = larger_number[len(lesser_number):]
+    calculation_result.append(''.join(appendix))
+    appendix = "!error!"
+    calculation_result = ''.join(calculation_result)
+    calculation_result = calculation_result[::-1]
+    return calculation_result
+
+
+### Стало:
+
+def BigMinus(s1, s2):
+
+    def calculate_difference(lesser, bigger):
+        calculation_result = []
+
+        for i in range(len(lesser)):
+            if int(bigger[i]) == int(lesser[i]):
+                calculation_result.append('0')
+            if int(bigger[i]) > int(lesser[i]):
+                digit_to_ascribe = int(bigger[i]) - int(lesser[i])
+                calculation_result.append(str(digit_to_ascribe))
+            elif int(bigger[i]) < int(lesser[i]):
+                bigger[i + 1] = str(int(larger[i + 1]) - 1)
+                digit_to_ascribe = (int(bigger[i]) + 10) - (
+                    int(lesser[i]))
+                calculation_result.append(str(digit_to_ascribe))
+
+        digit_to_ascribe = "!error!"
+
+        if len(calculation_result) == 0:
+            calculation_result.append('0')
+        appendix = bigger[len(lesser):]
+        calculation_result.append(''.join(appendix))
+        appendix = "!error!"
+        calculation_result = ''.join(calculation_result)
+        calculation_result = calculation_result[::-1]
+        return calculation_result
+
+    larger_number = ''
+    lesser_number = ''
+
+    if len(s1) == len(s2):
+        for i in range(len(s1)):
+            if int(s1[i]) > int(s2[i]):
+                larger_number = s1
+                lesser_number = s2
+            elif int(s1[i]) < int(s2[i]):
+                larger_number = s2
+                lesser_number = s1
+
+    elif len(s1) > len(s2):
+        larger_number = s1
+        lesser_number = s2
+    else:
+        larger_number = s2
+        lesser_number = s1
+
+    larger_number = list(larger_number[::-1])
+    lesser_number = list(lesser_number[::-1])
+
+    difference = calculate_difference(lesser_number, larger_number)
+    return difference
+
+================================================================================
+1) Вычисление разницы я выделил в отдельную функцию. Я не знаю насколько это
+действие оправдано и осмысленно в контексте этих задачек, но я работаю с тем
+что у меня сейчас есть. Возможно что в целях обучения это приемлимо. Да и как
+ещё в конктесте python группировать связанные команды и минимизировать область
+видимостей переменных кроме как оборачивая их в функции?
+================================================================================
+################################################################################
+### Было:
+
+def MassVote(N, Votes):
+
+    def check_draw(max_vote, vote_percents):
+        draw_result = False
+        counter = 0
+        for item in vote_percents:
+            if item == max_vote:
+                counter += 1
+            if counter > 1:
+                draw_result = True
+        return draw_result
+
+    percent = (100 / sum(Votes))
+    assert percent > 0, "percent can't be less or equal zero"
+    percents = []
+
+    for vote in Votes:
+        vote_amount = vote * percent
+        vote_amount = round(vote_amount, 3)
+        percents.append(vote_amount)
+
+    vote_result = 'no winner'
+    MOST_VOTED = max(percents)
+    if MOST_VOTED > 50.0:
+        vote_result = 'majority winner ' + str(percents.index(MOST_VOTED) + 1)
+    elif MOST_VOTED <= 50.0 and not check_draw(MOST_VOTED, percents):
+        vote_result = 'minority winner ' + str(percents.index(MOST_VOTED) + 1)
+
+    return vote_result
+
+
+### Стало:
+
+def MassVote(N, Votes):
+
+    def calculate_votes_percents(vote_numbers):
+        percent = (100 / sum(vote_numbers))
+        assert percent > 0, "percent can't be less or equal zero"
+        vote_percents = []
+
+        for vote in vote_numbers:
+            vote_percent = vote * percent
+            vote_percent = round(vote_percent, 3)
+            vote_percents.append(vote_percent)
+        return vote_percents
+
+    def determine_winner(percents_list):
+        winner_grade = 'no winner'
+        MOST_VOTED = max(percents_list)
+        if MOST_VOTED > 50.0:
+            winner_grade = 'majority winner ' + str(
+                percents_list.index(MOST_VOTED) + 1)
+        elif MOST_VOTED <= 50.0 and not is_draw(MOST_VOTED, percents_list):
+            winner_grade = 'minority winner ' + str(
+                percents_list.index(MOST_VOTED) + 1)
+
+        return winner_grade
+
+    def is_draw(max_vote, vote_percents):
+        draw_result = False
+        counter = 0
+        for item in vote_percents:
+            if item == max_vote:
+                counter += 1
+            if counter > 1:
+                draw_result = True
+        return draw_result
+
+    vote_percents_list = calculate_votes_percents(Votes)
+    election_result = determine_winner(vote_percents_list)
+    return election_result
+
+
+================================================================================
+1) Переимновал функцию check_draw в is_draw.
+2) Реорганизовал код в отдельные функции. Поправил имена переменных
+================================================================================
+################################################################################
+### Было:
+
+def ShopOLAP(N, items):
+
+    items_list = items
+    sales_stat_container = {}
+
+    for item in items_list:
+
+        item_name = item.split()[0]
+        sales_count = int(item.split()[1])
+
+        if item_name not in sales_stat_container:
+            sales_stat_container[item_name] = sales_count
+        else:
+            sales_stat_container[item_name] += sales_count
+
+    sorted_sales_list = []
+    for key, value in sorted(sales_stat_container.items(),
+                             key=lambda x: (-x[1], x[0])):
+
+        sorted_sales_list.append(key + ' ' + str(value))
+
+    return sorted_sales_list
+
+
+### Стало:
+
+def ShopOLAP(N, items):
+
+    def build_sales_dict(items_list):
+        sales_stat_container = {}
+
+        for item in items_list:
+
+            item_name = item.split()[0]
+            sales_count = int(item.split()[1])
+
+            if item_name not in sales_stat_container:
+                sales_stat_container[item_name] = sales_count
+            else:
+                sales_stat_container[item_name] += sales_count
+        return sales_stat_container
+
+    def sort_sales(dict_to_sort):
+        sorted_sales_list = []
+        for key, value in sorted(dict_to_sort.items(),
+                                 key=lambda x: (-x[1], x[0])):
+            sorted_sales_list.append(key + ' ' + str(value))
+
+        return sorted_sales_list
+
+    sales_dict = build_sales_dict(items)
+    sorted_sales = sort_sales(sales_dict)
+    return sorted_sales
+
+================================================================================
+1) Тоже самое, продолжаю реоганизовывать код, объединяя блоки кода в функции
+================================================================================
+################################################################################
+### Было:
+def BiggerGreater(input):
+
+    def add_to_results(lst):
+        permuted_variants.append(''.join(lst))
+
+    def permute(string, start, end):
+        if start == end:
+            add_to_results(string)
+        else:
+            for i in range(start, end + 1):
+                string[start], string[i] = string[i], string[start]
+                permute(string, start + 1, end)
+                string[start], string[i] = string[i], string[start]
+
+    LENGTH_OF_STRING = len(input)
+    input_word_char_list = list(input)
+    permuted_variants = []
+
+    permute(input_word_char_list, 0, LENGTH_OF_STRING - 1)
+
+    permuted_variants.sort()
+
+    initial_word_index = permuted_variants.index(input)
+
+    if initial_word_index == len(permuted_variants) - 1:
+        next_permute = ''
+    elif len(set(permuted_variants)) == 1:
+        next_permute = ''
+    else:
+        next_permute = permuted_variants[initial_word_index + 1]
+
+    return next_permute
+
+
+### Стало:
+
+def BiggerGreater(input):
+
+    def permute(list_to_permute, start, end):
+        if start == end:
+            add_to_results(list_to_permute)
+        else:
+            for i in range(start, end + 1):
+                list_to_permute[start], list_to_permute[i] = \
+                    list_to_permute[i], list_to_permute[start]
+
+                permute(list_to_permute, start + 1, end)
+
+                list_to_permute[start], list_to_permute[i] = \
+                    list_to_permute[i], list_to_permute[start]
+
+    def add_to_results(char_list):
+        permuted_variants.append(''.join(char_list))
+
+    def find_next_mutation(permutations_list):
+        permutations_list.sort()
+        initial_word_index = permutations_list.index(input)
+        if initial_word_index == len(permutations_list) - 1:
+            next_permute = ''
+        elif len(set(permutations_list)) == 1:
+            next_permute = ''
+        else:
+            next_permute = permutations_list[initial_word_index + 1]
+
+        return next_permute
+
+    LENGTH_OF_STRING = len(input)
+    input_word_char_list = list(input)
+
+    permuted_variants = []
+    permute(input_word_char_list, 0, LENGTH_OF_STRING - 1)
+
+    next_mutation = find_next_mutation(permuted_variants)
+    return next_mutation
+
+================================================================================
+Мне кажется, или правда стало немного понятнее что делает эта программа?
+Реорганизовал функции и изменил некоторые имена переменных
+================================================================================
+
+***
+
+================================================================================
+Снова недостаточное количество примеров для ответа.
+Впрочем, как мне кажется, я понимаю смысл минимальной обласи видимости для
+переменной. Как нормальная функция не должна иметь сайд-эффектов и в самом
+идеальном случае следовать принципу единой отвественности, так и переменная,
+в самом идеальном (А если нет, то нужно привести стремиться к этому идеальному)
+должна содержать в себе то, и вести себя так, как от неё ожидается.
+================================================================================
