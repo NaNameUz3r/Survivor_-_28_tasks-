@@ -1,5 +1,31 @@
 def BigMinus(s1, s2):
 
+    def calculate_difference(lesser, bigger):
+        calculation_result = []
+
+        for i in range(len(lesser)):
+            if int(bigger[i]) == int(lesser[i]):
+                calculation_result.append('0')
+            if int(bigger[i]) > int(lesser[i]):
+                digit_to_ascribe = int(bigger[i]) - int(lesser[i])
+                calculation_result.append(str(digit_to_ascribe))
+            elif int(bigger[i]) < int(lesser[i]):
+                bigger[i + 1] = str(int(larger[i + 1]) - 1)
+                digit_to_ascribe = (int(bigger[i]) + 10) - (
+                    int(lesser[i]))
+                calculation_result.append(str(digit_to_ascribe))
+
+        digit_to_ascribe = "!error!"
+
+        if len(calculation_result) == 0:
+            calculation_result.append('0')
+        appendix = bigger[len(lesser):]
+        calculation_result.append(''.join(appendix))
+        appendix = "!error!"
+        calculation_result = ''.join(calculation_result)
+        calculation_result = calculation_result[::-1]
+        return calculation_result
+
     larger_number = ''
     lesser_number = ''
 
@@ -21,31 +47,6 @@ def BigMinus(s1, s2):
 
     larger_number = list(larger_number[::-1])
     lesser_number = list(lesser_number[::-1])
-    calculation_result = []
 
-    for i in range(len(lesser_number)):
-        if int(larger_number[i]) == int(lesser_number[i]):
-            calculation_result.append('0')
-        if int(larger_number[i]) > int(lesser_number[i]):
-            digit_to_ascribe = int(larger_number[i]) - int(lesser_number[i])
-            calculation_result.append(str(digit_to_ascribe))
-        elif int(larger_number[i]) < int(lesser_number[i]):
-            larger_number[i + 1] = str(int(larger[i + 1]) - 1)
-            digit_to_ascribe = (int(larger_number[i]) + 10) - (
-                                int(lesser_number[i]))
-            calculation_result.append(str(digit_to_ascribe))
-
-    digit_to_ascribe = "!error!"
-
-    if len(calculation_result) == 0:
-        calculation_result.append('0')
-    appendix = larger_number[len(lesser_number):]
-    calculation_result.append(''.join(appendix))
-    appendix = "!error!"
-    calculation_result = ''.join(calculation_result)
-    calculation_result = calculation_result[::-1]
-    return calculation_result
-
-
-print(type(BigMinus("1", "321")))
-print((BigMinus("1", "321")))
+    difference = calculate_difference(lesser_number, larger_number)
+    return difference
