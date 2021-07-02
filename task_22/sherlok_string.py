@@ -18,11 +18,11 @@ def SherlockValidString(s):
     repeats = max(values_list, key=values_list.count)
 
     check = True
-    for i in range(len(values_list)):
-        if values_list[i] == repeats:
+    for item in values_list:
+        if item == repeats:
             continue
-        elif values_list[i] - 1 == repeats and check or (
-            values_list[i] - 1 == 0 and check
+        elif item - 1 == repeats and check or (
+            item - 1 == 0 and check
         ):
             check = False
             continue
@@ -31,4 +31,3 @@ def SherlockValidString(s):
     else:
         return True
     return False
-

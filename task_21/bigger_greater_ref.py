@@ -1,5 +1,8 @@
 def BiggerGreater(input):
 
+    # Global variable for storing recursive permute function results
+    permuted_variants = []
+
     def permute(list_to_permute, start, end):
         if start == end:
             add_to_results(list_to_permute)
@@ -32,12 +35,10 @@ def BiggerGreater(input):
     LENGTH_OF_STRING = len(input)
     input_word_char_list = list(input)
 
-    permuted_variants = []
     permute(input_word_char_list, 0, LENGTH_OF_STRING - 1)
 
     next_mutation = find_next_mutation(permuted_variants)
     return next_mutation
-
 
 
 print(BiggerGreater("вкиб"))

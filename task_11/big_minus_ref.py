@@ -8,7 +8,7 @@ def BigMinus(s1, s2):
                 calculation_result.append('0')
             if int(bigger[i]) > int(lesser[i]):
                 digit_to_ascribe = int(bigger[i]) - int(lesser[i])
-                calculation_result.append(str(digit_to_ascribe))
+                calculation_result.append(digit_to_ascribe)
             elif int(bigger[i]) < int(lesser[i]):
                 bigger[i + 1] = str(int(larger[i + 1]) - 1)
                 digit_to_ascribe = (int(bigger[i]) + 10) - (
@@ -50,3 +50,6 @@ def BigMinus(s1, s2):
 
     difference = calculate_difference(lesser_number, larger_number)
     return difference
+
+
+print(BigMinus("1", "321"))
