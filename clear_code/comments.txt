@@ -1,0 +1,44 @@
+################################################################################
+1) Добавил комментарий в одну из Survivor задачек.
+
+def BiggerGreater(input):
+
+    # Global variable for storing recursive permute function results
+    permuted_variants = []
+
+    def permute(list_to_permute, start, end):
+        if start == end:
+            add_to_results(list_to_permute)
+        else:
+            for i in range(start, end + 1):
+                list_to_permute[start], list_to_permute[i] = \
+                    list_to_permute[i], list_to_permute[start]
+
+                permute(list_to_permute, start + 1, end)
+
+                list_to_permute[start], list_to_permute[i] = \
+                    list_to_permute[i], list_to_permute[start]
+
+    def add_to_results(char_list):
+        permuted_variants.append(''.join(char_list))
+
+################################################################################
+2) В "кофемашине" в функци make_coffee нельшие комментарии с названиями напитков,
+потому что идентификация напитка сейчас закодирована по числу, которое мы
+получаем в process_user_choice, и вызываем make_coffe если выбор правильный.
+Избавиться от комментариев можно, если в process_user_choice мы будем передавать
+в make_coffe название напитка (espresso, etc), и внутри сравнивать cup не с числом, а именованием напитка. Не уверен насколько это повысит читаемость. Мне кажется
+короткие комментарии в данном случае уместны, выступают своего рода "лейблом"
+и не сильно замусоривают код.
+
+https://github.com/NaNameUz3r/JetBrains_Academy/blob/main/coffee_machine/coffee_machine.py
+################################################################################
+3) В доминошках я добавил два коротких коммента, которые помогают глазу
+зацепиться за части кода - где иницализируется игра, а где начинается код который
+отвечает непосредственно за саму игру.
+(два комментария:
+# Game initialization
+# Interactive game part)
+
+https://github.com/NaNameUz3r/JetBrains_Academy/blob/main/dominoes/dominoes.py
+################################################################################
